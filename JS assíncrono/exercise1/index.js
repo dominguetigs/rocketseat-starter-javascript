@@ -6,21 +6,21 @@
 
 
 function checkAge(age) {
-    return new Promise(function(resolve, reject) {
-        setTimeout(function() {
-            if (age >= 18) {
-                resolve();
-            } else {
-                reject();
-            }
-        }, 2000);
-    });
+  return new Promise(((resolve, reject) => {
+    setTimeout(() => {
+      if (age >= 18) {
+        resolve();
+      } else {
+        reject();
+      }
+    }, 2000);
+  }));
 }
 
 checkAge(18)
-    .then(function() {
-        console.log('Maior ou igual a 18.');
-    })
-    .catch(function() {
-        console.log('Menor que 18.');
-    });
+  .then(() => {
+    console.log('Maior ou igual a 18.');
+  })
+  .catch(() => {
+    console.log('Menor que 18.');
+  });

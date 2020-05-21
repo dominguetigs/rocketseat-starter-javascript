@@ -6,18 +6,19 @@
 
 
 function pares(x, y) {
-    var evenNumbers = [];
+  const evenNumbers = [];
 
-    while (x <= y) {
-        if (x % 2 === 0) {
-            evenNumbers.push(x);
-        }
-        x++;
+  let starter = x;
+  while (starter <= y) {
+    if (x % 2 === 0) {
+      evenNumbers.push(x);
     }
+    starter += 1;
+  }
 
-    return evenNumbers;
+  return evenNumbers;
 }
 
-var evenNumbers = pares(32, 321);
+const evenNumbers = pares(32, 321);
 
 console.log(evenNumbers);

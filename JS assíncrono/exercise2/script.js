@@ -1,55 +1,51 @@
-var url = 'https://api.github.com/users/';
+const url = 'https://api.github.com/users/';
 
-var bodyElement = document.querySelector('body');
-var inputElement = document.querySelector('input[name=user]');
-var buttonElement = document.querySelector('button');
+const bodyElement = document.querySelector('body');
+const inputElement = document.querySelector('input[name=user]');
+const buttonElement = document.querySelector('button');
 
-var listElement = document.createElement('ul');
+const listElement = document.createElement('ul');
 
 bodyElement.appendChild(listElement);
 
-buttonElement.addEventListener('click', function () {
-    var user = inputElement.value;
+function getUserFromGithub(user) {
+  return new Promise(((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `${url + user}/repos`);
+    xhr.send(null);
 
-    getUserFromGithub(user)
-        .then(function (response) {
-            var repositoriesNames = response.map(function (r) {
-                return r.name;
-            });
-            addItemstoList(repositoriesNames);
-        })
-        .catch(function (error) {
-            console.warn(error);
-        });
-});
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          resolve(JSON.parse(xhr.responseText));
+        } else {
+          reject(new Error('Error!'));
+        }
+      }
+    };
+  }));
+}
 
 function addItemstoList(items) {
-    listElement.innerHTML = '';
+  listElement.innerHTML = '';
 
-    for (var item of items) {
-        var listItemElement = document.createElement('li');
-        var listItemText = document.createTextNode(item);
-        listItemElement.appendChild(listItemText);
-        listElement.appendChild(listItemElement);
-    }
+  for (const item of items) {
+    const listItemElement = document.createElement('li');
+    const listItemText = document.createTextNode(item);
+    listItemElement.appendChild(listItemText);
+    listElement.appendChild(listItemElement);
+  }
 }
 
-function getUserFromGithub(user) {
-    return new Promise(function (resolve, reject) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', url + user + '/repos');
-        xhr.send(null);
+buttonElement.addEventListener('click', () => {
+  const user = inputElement.value;
 
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    resolve(JSON.parse(xhr.responseText));
-                } else {
-                    reject('Error!');
-                }
-            }
-        }
+  getUserFromGithub(user)
+    .then((response) => {
+      const repositoriesNames = response.map((r) => r.name);
+      addItemstoList(repositoriesNames);
+    })
+    .catch((error) => {
+      console.warn(error);
     });
-}
-
-
+});
