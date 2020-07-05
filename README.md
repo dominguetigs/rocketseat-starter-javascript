@@ -6,7 +6,7 @@
   <a href="https://rocketseat.com.br">
     <img alt="Made by Rocketseat" src="https://img.shields.io/badge/made%20by-Rocketseat-7159C1">
   </a>
-  <img alt="License" src="https://img.shields.io/github/license/dominguetigs/rocketseat-starter-javascript-es6?color=7159C1">
+  <img alt="License" src="https://img.shields.io/github/license/dominguetigs/rocketseat-starter-javascript?color=7159C1">
 </p>
 
 <a id="sobre"></a>
